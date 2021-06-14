@@ -1,2 +1,1 @@
-# RPG-Game-in-c-
-Jogo RPG criado em dupla com @mit018
+# Jogo RPG desenvolvido em C++
