@@ -5,6 +5,48 @@
 
 using namespace std;
 
+/* FUNÇÕES E PROCEDIMENTOS */
+int menu();
+int menuEscolherPersonagem();
+/* END FUNÇÕES E PROCEDIMENTOS */
+
+/* --------------------------------------------------------------------------------------------------------- */
+
+/* INT MAIN */
+int main()
+{
+
+    int op;
+
+    cout << "\nSeja bem vindo ao Batalha Medieval! :D";
+
+    op = menu();
+
+    while (op != 3)
+    {
+        if (op == 1)
+        {
+            menuEscolherPersonagem();
+            op = menu();
+        }
+        else if (op == 2)
+        {
+        }
+    }
+
+    cout << "\nObrigado por jogar, volte sempre! :D";
+
+    return 0;
+}
+/* END INT MAIN */
+
+/* --------------------------------------------------------------------------------------------------------- */
+
+/******************************************
+********* FUNÇÕES E PROCEDIMENTOS *********
+******************************************/
+
+/* MENU */
 int menu()
 {
     int op;
@@ -24,7 +66,9 @@ int menu()
 
     return op;
 }
+/* END MENU */
 
+/* MENU ESCOLHER PERSONAGEM */
 int menuEscolherPersonagem()
 {
     int op, cod1, cod2;
@@ -87,29 +131,4 @@ int menuEscolherPersonagem()
 
     return 0;
 }
-
-int main()
-{
-
-    int op;
-
-    cout << "\nSeja bem vindo ao Batalha Medieval! :D";
-
-    op = menu();
-
-    while (op != 3)
-    {
-        if (op == 1)
-        {
-            menuEscolherPersonagem();
-            op = menu();
-        }
-        else if (op == 2)
-        {
-        }
-    }
-
-    cout << "\nObrigado por jogar, volte sempre! :D";
-
-    return 0;
-}
+/* END MENU ESCOLHER PERSONAGEM */
