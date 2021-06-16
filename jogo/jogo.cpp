@@ -1,5 +1,10 @@
 #include "jogo.h"
 
+/********************
+**** PERSONAGENS ****
+********************/
+
+/* FUNÇÃO CONSTRUTORA */
 Personagens::Personagens(string nome, int cod, int vida, int mana, int fisica, int magica, int resistFisica,
                          int resistMagica, int agilidade)
 {
@@ -14,13 +19,20 @@ Personagens::Personagens(string nome, int cod, int vida, int mana, int fisica, i
     this->agilidade = agilidade;
     const static int vidaMax = vida;
 }
+/* END FUNÇÃO CONSTRUTORA */
 
+/* FUNÇÃO PEGAR VIDA PERSONAGEM */
 int Personagens::getVida()
 {
     return vida;
 }
+/* END FUNÇÃO PEGAR VIDA PERSONAGEM */
 
+/* FUNÇÃO RECEBER CODIGO DO PERSONAGEM */
 int Personagens::getCod()
 {
     return cod;
 }
+/* END FUNÇÃO RECEBER CODIGO DO PERSONAGEM */
+
+/* --------------------------------------------------------------------------------------------------------- */

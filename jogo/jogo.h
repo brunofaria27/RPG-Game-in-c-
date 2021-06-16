@@ -4,6 +4,7 @@
 
 using namespace std;
 
+/* CLASSE PERSONGEM */
 class Personagens
 {
 private:
@@ -27,3 +28,4 @@ public:
     int getCod();
     ~Personagens();
 };
+/* END CLASSE PERSONAGEM */
