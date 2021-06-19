@@ -2,6 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include <ctime>
+#include <ctype.h>
 #include "jogo.h"
 
 using namespace std;
@@ -9,9 +10,10 @@ using namespace std;
 /* FUNÇÕES E PROCEDIMENTOS */
 int menu();
 int menuAcoes();
-int menuEscolherPersonagem(Personagens *p1, Personagens *p2);
-void criaPersonagem(int cod, Personagens *p);
-int Agir(Personagens *p1, Personagens *p2, int atacante, int acao);
+void menuEscolherPersonagem(Personagem *p, int jogador);
+int Agir(Personagem *p1, Personagem *p2, int atacante, int acao);
+int menuMagias(Personagem *p);
+int menuArmas(Personagem *p);
 /* END FUNÇÕES E PROCEDIMENTOS */
 
 /* --------------------------------------------------------------------------------------------------------- */
@@ -20,7 +22,8 @@ int Agir(Personagens *p1, Personagens *p2, int atacante, int acao);
 int main()
 {
     int op;
-    Personagens *p1, *p2;
+    Personagem *p1 = new Personagem("Guerreiro", 1, "a", 4000, 30, 100, 20, 80, 20, 20);
+    Personagem *p2 = new Personagem("Guerreiro", 1, "a", 4000, 30, 100, 20, 80, 20, 20);
 
     cout << "\nSeja bem vindo ao Batalha Medieval! :D";
 
@@ -30,14 +33,22 @@ int main()
     {
         if (op == 1)
         {
-            menuEscolherPersonagem(p1, p2);
+            cout << "\nExplicacao de como jogar\n";
+            system("pause");
+
             op = menu();
         }
         else if (op == 2)
-        {
-            int turno, jogador = 1, acao, op2;
+        {   
+            menuEscolherPersonagem(p1, 1);
+            cout << "\nvida 1 = " << p1->getVida();
+            menuEscolherPersonagem(p2, 2);
+            cout << "\nvida 2 = " << p2->getVida();
 
-            for (turno = 1; (p1->getVida() > 0 && p2->getVida() > 0); turno++)
+            int turno = 1, jogador = 1, acao, op2;
+            int vida1 = p1->getVida(), vida2 = p2->getVida();
+
+            while (vida1 > 0 && vida2 > 0)
             {
                 cout << "\nTURNO " << turno;
 
@@ -59,7 +70,6 @@ int main()
                         if (op2 == 1)
                         {
                             cout << "Parabens! Voce perdeu por W.O!\nVencedor: Jogador 2";
-                            cout << "Obrigado por jogar mais ou menos! Da proxima ve se termina :D";
                             return 0;
                         }
                         else
@@ -74,7 +84,7 @@ int main()
                 {
                     cout << "\nVez do jogador " << jogador;
                     acao = menuAcoes();
-                    while (acao == 4)
+                    while (acao == 3)
                     {
                         cout << "\nDeseja sair e perder todo o progresso do jogo? (1 - Prosseguir; 2 - Cancelar)\n";
                         cin >> op2;
@@ -87,6 +97,7 @@ int main()
 
                         if (op2 == 1)
                         {
+                            cout << "Parabens! Voce perdeu por W.O!\nVencedor: Jogador 1";
                             return 0;
                         }
                         else
@@ -97,6 +108,7 @@ int main()
                     Agir(p1, p2, jogador, acao);
                     jogador--;
                 }
+                turno++;
             }
         }
     }
@@ -113,12 +125,40 @@ int main()
 ********* FUNÇÕES E PROCEDIMENTOS *********
 ******************************************/
 
-int Agir(Personagens *p1, Personagens *p2, int atacante, int acao)
+int Agir(Personagem *p1, Personagem *p2, int atacante, int acao)
 {
-    if(acao == 1){
-        
+    if (acao == 1)
+    {
+        int codMagia;
+
+        if (atacante == 1)
+        {
+            codMagia = menuMagias(p1);
+        }
+        else
+        {
+            codMagia = menuMagias(p2);
+        }
     }
 }
+
+/* MENU MAGIAS */
+int menuMagias(Personagem *p)
+{
+    /*cout << "\nMENU DE MAGIAS DE " << toupper(p->getNome());
+    int i = 1, codM = 1, codP = p->getCodP;
+
+    for (codM = 1; codM <= 7; codM++)
+    {
+        if(p->getCodP == 4 || p->getCodP == 5){
+            cout << i++ << 
+        }
+    }
+
+    return codM;*/
+}
+
+/* END MENU MAGIAS */
 
 /* MENU ACOES */
 int menuAcoes()
@@ -126,10 +166,9 @@ int menuAcoes()
     int op;
 
     cout << "\nMENU DE ACOES";
-    cout << "\n1 - Usar Magia de cura";
-    cout << "\n2 - Usar Magia de ataque";
-    cout << "\n3 - Usar Arma";
-    cout << "\n4 - Sair do jogo";
+    cout << "\n1 - Usar Magia";
+    cout << "\n2 - Usar Arma";
+    cout << "\n3 - Sair do jogo";
 
     cout << "\n\nOpcao escolhida: ";
     cin >> op;
@@ -149,9 +188,9 @@ int menu()
 {
     int op;
 
-    cout << "\nMENU";
-    cout << "\n1 - Escolher Personagem";
-    cout << "\n2 - Comecar a Jogar";
+    cout << "\n\nMENU";
+    cout << "\n1 - Como Jogar";
+    cout << "\n2 - Jogar";
     cout << "\n3 - Sair";
 
     cout << "\n\nOpcao escolhida: ";
@@ -168,106 +207,78 @@ int menu()
 /* END MENU */
 
 /* MENU ESCOLHER PERSONAGEM */
-int menuEscolherPersonagem(Personagens *p1, Personagens *p2)
+void menuEscolherPersonagem(Personagem *p, int jogador)
 {
-    int op, cod1, cod2;
+    int cod;
 
-    cout << "\nMENU ESCOLHER PERSONAGEM";
-    cout << "\n1 - Jogador 1";
-    cout << "\n2 - Jogador 2";
-    cout << "\n3 - Retornar ao menu";
+    cout << "\n\nESCOLHA SEU PERSONAGEM, JOGADOR " << jogador;
+
+    cout << "\n\nHUMANOS:";
+    cout << "\n   1 - Guerreiro";
+    cout << "\n   2 - Ladrao";
+    cout << "\n   3 - Mago";
+    cout << "\n   4 - Paladino";
+    cout << "\n\nINUMANOS:";
+    cout << "\n   5 - Animal";
+    cout << "\n   6 - Troll";
+    cout << "\n   7 - Dragao";
+    cout << "\n   8 - Zumbi";
 
     cout << "\n\nOpcao escolhida: ";
-    cin >> op;
+    cin >> cod;
 
-    while (op < 1 || op > 3)
+    while (cod < 1 || cod > 8)
     {
-        cout << "Opcao invalida, insira novamente: ";
-        cin >> op;
+        cout << "\n\nOpcao invalida, insira novamente: ";
+        cin >> cod;
     }
 
-    if (op != 3)
-    {
-        cout << "\nMENU ESCOLHER PERSONAGEM";
-        cout << "\n\nHUMANOS:";
-        cout << "\n   1 - Guerreiro";
-        cout << "\n   2 - Ladrao";
-        cout << "\n   3 - Mago";
-        cout << "\n   4 - Paladino";
-        cout << "\n\nINUMANOS:";
-        cout << "\n   5 - Animal";
-        cout << "\n   6 - Troll";
-        cout << "\n   7 - Dragao";
-        cout << "\n   8 - Zumbi";
-    }
+    string nome;
+    cout << "\nNome: ";
+    cin >> nome;
 
-    if (op == 1)
-    {
-        cout << "\n\nOpcao escolhida: ";
-        cin >> cod1;
-
-        while (cod1 < 1 || cod1 > 8)
-        {
-            cout << "Opcao invalida, insira novamente: ";
-            cin >> cod1;
-        }
-
-        criaPersonagem(cod1, p1);
-    }
-    else if (op == 2)
-    {
-        cout << "\n\nOpcao escolhida: ";
-        cin >> cod2;
-
-        while (cod2 < 1 || cod2 > 8)
-        {
-            cout << "Opcao invalida, insira novamente: ";
-            cin >> cod2;
-        }
-
-        criaPersonagem(cod2, p2);
-    }
-    else
-    {
-        return 0;
-    }
-
-    return 0;
-}
-/* END MENU ESCOLHER PERSONAGEM */
-
-void criaPersonagem(int cod, Personagens *p)
-{
     if (cod == 1)
     {
-        p = new Personagens("Guerreiro", 1, 4000, 30, 100, 20, 80, 20, 20);
+        p = new Personagem("Guerreiro", 1, nome, 4000, 30, 100, 20, 80, 20, 20);
     }
     else if (cod == 2)
     {
-        p = new Personagens("Ladrao", 2, 2800, 50, 50, 30, 40, 50, 80);
+        p = new Personagem("Ladrao", 2, nome, 2800, 50, 50, 30, 40, 50, 80);
     }
     else if (cod == 3)
     {
-        p = new Personagens("Mago", 3, 2500, 100, 40, 100, 30, 80, 40);
+        p = new Personagem("Mago", 3, nome, 2500, 100, 40, 100, 30, 80, 40);
     }
     else if (cod == 4)
     {
-        p = new Personagens("Paladino", 4, 3200, 80, 60, 50, 60, 60, 60);
+        p = new Personagem("Paladino", 4, nome, 3200, 80, 60, 50, 60, 60, 60);
     }
     else if (cod == 5)
     {
-        p = new Personagens("Animal", 5, 3200, 30, 80, 20, 80, 20, 50);
+        p = new Personagem("Animal", 5, nome, 3200, 30, 80, 20, 80, 20, 50);
     }
     else if (cod == 6)
     {
-        p = new Personagens("Troll", 6, 2800, 20, 100, 20, 80, 20, 20);
+        p = new Personagem("Troll", 6, nome, 2800, 20, 100, 20, 80, 20, 20);
     }
     else if (cod == 7)
     {
-        p = new Personagens("Dragao", 7, 3000, 40, 100, 20, 50, 50, 30);
+        p = new Personagem("Dragao", 7, nome, 3000, 40, 100, 20, 50, 50, 30);
     }
     else if (cod == 8)
     {
-        p = new Personagens("Zumbi", 8, 2500, 20, 40, 20, 40, 80, 50);
+        p = new Personagem("Zumbi", 8, nome, 2500, 20, 40, 20, 40, 80, 50);
     }
+
+    cout << "\nPersonagem criado!\n";
+    cout << "\nClasse: " << p->getClasse();
+    cout << "\nNome: " << p->getNome();
+    cout << "\nVida: " << p->getVida();
+    cout << "\nMana: " << p->getMana();
+    cout << "\nForca fisica: " << p->getFisica();
+    cout << "\nForca magica: " << p->getMagica();
+    cout << "\nArmadura: " << p->getResistFisica();
+    cout << "\nResistencia magica: " << p->getResistMagica();
+    cout << "\nAgilidade: " << p->getAgilidade();
 }
+/* END MENU ESCOLHER PERSONAGEM */

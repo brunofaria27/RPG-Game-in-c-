@@ -5,11 +5,12 @@
 using namespace std;
 
 /* CLASSE PERSONGEM */
-class Personagens
+class Personagem
 {
-private:
-    string nome;
+protected:
+    string classe;
     int cod;
+    string nome;
     int vida;
     int mana;
     int fisica;
@@ -17,15 +18,38 @@ private:
     int resistFisica;
     int resistMagica;
     int agilidade;
-    //MagiaDano *MagiaDano;
-    //MagiaCura *MagiaCura;
-    //Arma *arma;
 
 public:
-    Personagens(string nome, int cod, int vida, int mana, int fisica, int magica, int resistFisica,
-                int resistMagica, int agilidade);
+    Personagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, int resistFisica,
+               int resistMagica, int agilidade);
+    string getClasse();
     int getVida();
-    int getCod();
-    ~Personagens();
+    int getCodP();
+    string getNome();
+    int getMana();
+    int getFisica();
+    int getMagica();
+    int getResistFisica();
+    int getResistMagica();
+    int getAgilidade();
+    ~Personagem();
 };
 /* END CLASSE PERSONAGEM */
+
+/* CLASSE MAGIA*/
+class Magia : public Personagem
+{
+private:
+    string nome;
+    int cod;
+    int gastoMana;
+    int curaOuDano;
+
+public:
+    Magia(string nome, int cod, int gastoMana, int curaOuDano);
+    int getCodM();
+    void receberDano(int dano);
+    void receberCura(int cura);
+    ~Magia();
+};
+/* END CLASSE MAGIA*/
