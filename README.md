@@ -30,11 +30,11 @@ em C++, testando Objetos, Ponteiros, Passagem de parâmetros e outros. O jogo fo
 
 <!--ts-->
    * [Sobre](#Sobre)
-   * [Regras de mágias e armas](#regras)
+   * [Regras de magias e armas](#regras)
       * [Personagens](#personagens)
       * [Magias](#magias)
       * [Armas](#armas)
-   * [Status Porjeto](#status)
+   * [Status Projeto](#status)
    * [Como acessar o jogo](#tecnologias)
    * [Organização de diretórios](#dire)
    * [Tecnologias](#tecno)
