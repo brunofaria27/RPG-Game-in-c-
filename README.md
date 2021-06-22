@@ -72,7 +72,7 @@ Nos imagens, encontram-se as regras para pontos de vida de cada categoria, ponto
 
 <div id="regras"></div>
 
-## 🚩 Regras de mágias e armas
+## 🚩 Regras de magias e armas
 
 <br/>
 
