@@ -10,10 +10,10 @@ using namespace std;
 /* FUNÇÕES E PROCEDIMENTOS */
 int menu();
 int menuAcoes();
-void menuEscolherPersonagem(Personagem *p, int jogador);
-int Agir(Personagem *p1, Personagem *p2, int atacante, int acao);
-int menuMagias(Personagem *p);
-int menuArmas(Personagem *p);
+void menuEscolherPersonagem(Personagem &p, int jogador);
+void usarMagia(int codMagia, Personagem &p2, Personagem &p1);
+int menuMagias(Personagem &p);
+int menuArmas(Personagem &p);
 /* END FUNÇÕES E PROCEDIMENTOS */
 
 /* --------------------------------------------------------------------------------------------------------- */
@@ -22,8 +22,8 @@ int menuArmas(Personagem *p);
 int main()
 {
     int op;
-    Personagem *p1 = new Personagem();
-    Personagem *p2 = new Personagem();
+    Personagem p1;
+    Personagem p2;
 
     cout << "\nSeja bem vindo ao Batalha Medieval! :D";
 
@@ -35,84 +35,128 @@ int main()
         {
             cout << "\nExplicacao de como jogar\n";
             system("pause");
+            system("cls");
 
             op = menu();
         }
         else if (op == 2)
-        {   
+        {
             menuEscolherPersonagem(p1, 1);
-            cout << "\nvida 1 = " << p1->getVida();
-            cout << "\nNome 1 = " << p1->getNome();
 
             menuEscolherPersonagem(p2, 2);
-            cout << "\nvida 2 = " << p2->getVida();
-            cout << "\nNome 2 = " << p2->getNome();
 
             int turno = 1, jogador = 1, acao, op2;
-            int vida1 = p1->getVida(), vida2 = p2->getVida();
+
+            int vida1 = p1.getVida(), vida2 = p2.getVida();
 
             while (vida1 > 0 && vida2 > 0)
             {
-                cout << "\nTURNO " << turno;
+                cout << "\n\nTURNO " << turno;
 
                 if (jogador == 1)
                 {
-                    cout << "\nVez do jogador " << jogador;
-                    acao = menuAcoes();
-                    while (acao == 4)
+                    cout << "\n\n"
+                         << p1.getNome() << ", escolha sua acao.";
+                    cout << "\n\nVida atual: " << p1.getVida();
+                }
+                else
+                {
+                    cout << "\n\n"
+                         << p2.getNome() << ", escolha sua acao.";
+                    cout << "\n\nVida atual: " << p2.getVida();
+                }
+
+                acao = menuAcoes();
+                while (acao == 4)
+                {
+                    cout << "\nDeseja sair e perder todo o progresso do jogo? (1 - Prosseguir; 2 - Cancelar)\n";
+                    cin >> op2;
+
+                    while (op2 > 2 || op2 < 1)
                     {
-                        cout << "\nDeseja sair e perder todo o progresso do jogo? (1 - Prosseguir; 2 - Cancelar)\n";
+                        cout << "Opcao invalida, insira novamente: ";
                         cin >> op2;
+                    }
 
-                        while (op2 > 2 || op2 < 1)
+                    if (op2 == 1)
+                    {
+                        cout << "Parabens! Voce perdeu por W.O!\nVencedor: ";
+                        if (jogador == 1)
                         {
-                            cout << "Opcao invalida, insira novamente: ";
-                            cin >> op2;
-                        }
-
-                        if (op2 == 1)
-                        {
-                            cout << "Parabens! Voce perdeu por W.O!\nVencedor: Jogador 2";
-                            return 0;
+                            cout << jogador + 1;
                         }
                         else
                         {
-                            acao = menuAcoes();
+                            cout << jogador - 1;
+                        }
+                        return 0;
+                    }
+                    else
+                    {
+                        acao = menuAcoes();
+                    }
+                }
+
+                if (acao == 1)
+                {
+                    int codMagia;
+
+                    if (jogador == 1)
+                    {
+                        codMagia = menuMagias(p1);
+                        if (codMagia == 0)
+                        {
+                            jogador--;
+                            turno--;
+                        }
+                        else
+                        {
+                            usarMagia(codMagia, p2, p1);
                         }
                     }
-                    Agir(p1, p2, jogador, acao);
+                    else
+                    {
+                        codMagia = menuMagias(p2);
+                        if (codMagia == 0)
+                        {
+                            jogador++;
+                            turno--;
+                        }
+                        else
+                        {
+                            usarMagia(codMagia, p1, p2);
+                        }
+                    }
+                }
+                else if (acao == 2)
+                {
+                }
+                else
+                {
+                    if (jogador == 2)
+                    {
+                        p1.printAtributos();
+                        jogador--;
+                        turno--;
+                    }
+                    else
+                    {
+                        p2.printAtributos();
+                        jogador++;
+                        turno--;
+                    }
+                }
+
+                if (jogador == 1)
+                {
                     jogador++;
                 }
                 else
                 {
-                    cout << "\nVez do jogador " << jogador;
-                    acao = menuAcoes();
-                    while (acao == 3)
-                    {
-                        cout << "\nDeseja sair e perder todo o progresso do jogo? (1 - Prosseguir; 2 - Cancelar)\n";
-                        cin >> op2;
-
-                        while (op2 > 2 || op2 < 1)
-                        {
-                            cout << "Opcao invalida, insira novamente: ";
-                            cin >> op2;
-                        }
-
-                        if (op2 == 1)
-                        {
-                            cout << "Parabens! Voce perdeu por W.O!\nVencedor: Jogador 1";
-                            return 0;
-                        }
-                        else
-                        {
-                            acao = menuAcoes();
-                        }
-                    }
-                    Agir(p1, p2, jogador, acao);
                     jogador--;
                 }
-                turno++;
             }
+            turno++;
         }
     }
 
@@ -124,59 +168,165 @@ int main()
 
 /* --------------------------------------------------------------------------------------------------------- */
 
-/******************************************
-********* FUNÇÕES E PROCEDIMENTOS *********
-******************************************/
+/*************************************************************************************************************
+********* FUNÇÕES E PROCEDIMENTOS ****************************************************************************
+*************************************************************************************************************/
 
-int Agir(Personagem *p1, Personagem *p2, int atacante, int acao)
+/* MENU MAGIAS */
+int menuMagias(Personagem &p)
 {
-    if (acao == 1)
-    {
-        int codMagia;
+    cout << "\nMagias disnponiveis para " << p.getClasse();
 
-        if (atacante == 1)
+    int i = 1, codM = 1, codP = p.getCodP();
+
+    cout << "\n\n0 - Retornar ao menu de acoes";
+
+    if (codP == 4 || codP == 5)
+    {
+        cout << i++ << "\n- Pocao de vida\nRestaura 200 pontos de vida\nGasta 12 pontos de mana";
+    }
+    if (codP == 7)
+    {
+        cout << i++ << "\n\n- Halito de Fogo\nCausa 400 de dano\nGasta 12 pontos de mana";
+    }
+    if (codP == 3 || codP == 5)
+    {
+        cout << i++ << "\n\n- Bio\nCausa 360 de dano\nGasta 14 pontos de mana";
+    }
+    if (codP == 3)
+    {
+        cout << i++ << "\n\n- Cura\nRestaura 400 pontos de vida\nGasta 16 pontos de mana";
+    }
+    if (codP == 3 || codP == 4)
+    {
+        cout << i++ << "\n\n- Flama Gelada\nCausa 320 de dano\nGasta 14 pontos de mana";
+    }
+    if (codP == 2 || codP == 3 || codP == 6 || codP == 8)
+    {
+        cout << i++ << "\n\n- Intoxicacao\nCausa 280 de dano\nGasta 12 pontos de mana";
+    }
+    if (codP == 1 || codP == 2 || codP == 3 || codP == 4)
+    {
+        cout << i++ << "\n\n- Tempestade\nCausa 200 de dano\nGasta 12 pontos de mana";
+    }
+
+    cout << "\n\nOpcao escolhida: ";
+    cin >> codM;
+
+    while (codM < 1 || codM > i)
+    {
+        cout << "\n\nOpcao invalida, insira novamente: ";
+        cin >> codM;
+    }
+
+    return codM;
+}
+/* END MENU MAGIAS */
+
+/* ACAO USAR MAGIA */
+void usarMagia(int codMagia, Personagem &invocador, Personagem &receptor)
+{
+    if (codMagia == 1)
+    {
+        if (invocador.getMana() < 12)
         {
-            codMagia = menuMagias(p1);
+            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
         }
         else
         {
-            codMagia = menuMagias(p2);
+            invocador.receberCura(200);
+            invocador.perderMana(12);
         }
     }
-}
-
-/* MENU MAGIAS */
-int menuMagias(Personagem *p)
-{
-    /*cout << "\nMENU DE MAGIAS DE " << toupper(p->getNome());
-    int i = 1, codM = 1, codP = p->getCodP;
-
-    for (codM = 1; codM <= 7; codM++)
+    else if (codMagia == 2)
     {
-        if(p->getCodP == 4 || p->getCodP == 5){
-            cout << i++ << 
+        if (invocador.getMana() < 12)
+        {
+            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
+        }
+        else
+        {
+            receptor.receberDanoM(400, invocador.getMagica());
+            invocador.perderMana(12);
         }
     }
-
-    return codM;*/
+    else if (codMagia == 3)
+    {
+        if (invocador.getMana() < 14)
+        {
+            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
+        }
+        else
+        {
+            receptor.receberDanoM(360, invocador.getMagica());
+            invocador.perderMana(14);
+        }
+    }
+    else if (codMagia == 4)
+    {
+        if (invocador.getMana() < 16)
+        {
+            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
+        }
+        else
+        {
+            receptor.receberCura(400);
+            invocador.perderMana(16);
+        }
+    }
+    else if (codMagia == 5)
+    {
+        if (invocador.getMana() < 14)
+        {
+            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
+        }
+        else
+        {
+            receptor.receberDanoM(320, invocador.getMagica());
+            invocador.perderMana(14);
+        }
+    }
+    else if (codMagia == 6)
+    {
+        if (invocador.getMana() < 12)
+        {
+            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
+        }
+        else
+        {
+            receptor.receberDanoM(280, invocador.getMagica());
+            invocador.perderMana(12);
+        }
+    }
+    else if (codMagia == 7)
+    {
+        if (invocador.getMana() < 12)
+        {
+            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
+        }
+        else
+        {
+            receptor.receberDanoM(200, invocador.getMagica());
+            invocador.perderMana(12);
+        }
+    }
 }
-
-/* END MENU MAGIAS */
+/* END ACAO USAR MAGIA */
 
 /* MENU ACOES */
 int menuAcoes()
 {
     int op;
 
-    cout << "\nMENU DE ACOES";
-    cout << "\n1 - Usar Magia";
+    cout << "\n\n1 - Usar Magia";
     cout << "\n2 - Usar Arma";
-    cout << "\n3 - Sair do jogo";
+    cout << "\n3 - Exibir atributos atuais";
+    cout << "\n4 - Sair do jogo";
 
     cout << "\n\nOpcao escolhida: ";
     cin >> op;
 
-    while (op < 1 || op > 3)
+    while (op < 1 || op > 4)
     {
         cout << "Opcao invalida, insira novamente: ";
         cin >> op;
@@ -210,7 +360,7 @@ int menu()
 /* END MENU */
 
 /* MENU ESCOLHER PERSONAGEM */
-void menuEscolherPersonagem(Personagem *p, int jogador)
+void menuEscolherPersonagem(Personagem &p, int jogador)
 {
     int cod;
 
@@ -230,6 +380,8 @@ void menuEscolherPersonagem(Personagem *p, int jogador)
     cout << "\n\nOpcao escolhida: ";
     cin >> cod;
 
+    system("cls");
+
     while (cod < 1 || cod > 8)
     {
         cout << "\n\nOpcao invalida, insira novamente: ";
@@ -242,47 +394,39 @@ void menuEscolherPersonagem(Personagem *p, int jogador)
 
     if (cod == 1)
     {
-        p->setPersonagem("Guerreiro", 1, nome, 4000, 30, 100, 20, 80, 20, 20);
+        p.setPersonagem("Guerreiro", 1, nome, 4000, 30, 100, 20, 80, 20, 20);
     }
     else if (cod == 2)
     {
-        p->setPersonagem("Ladrao", 2, nome, 2800, 50, 50, 30, 40, 50, 80);
+        p.setPersonagem("Ladrao", 2, nome, 2800, 50, 50, 30, 40, 50, 80);
     }
     else if (cod == 3)
     {
-        p->setPersonagem("Mago", 3, nome, 2500, 100, 40, 100, 30, 80, 40);
+        p.setPersonagem("Mago", 3, nome, 2500, 100, 40, 100, 30, 80, 40);
     }
     else if (cod == 4)
     {
-        p->setPersonagem("Paladino", 4, nome, 3200, 80, 60, 50, 60, 60, 60);
+        p.setPersonagem("Paladino", 4, nome, 3200, 80, 60, 50, 60, 60, 60);
     }
     else if (cod == 5)
     {
-        p->setPersonagem("Animal", 5, nome, 3200, 30, 80, 20, 80, 20, 50);
+        p.setPersonagem("Animal", 5, nome, 3200, 30, 80, 20, 80, 20, 50);
     }
     else if (cod == 6)
     {
-        p->setPersonagem("Troll", 6, nome, 2800, 20, 100, 20, 80, 20, 20);
+        p.setPersonagem("Troll", 6, nome, 2800, 20, 100, 20, 80, 20, 20);
     }
     else if (cod == 7)
     {
-        p->setPersonagem("Dragao", 7, nome, 3000, 40, 100, 20, 50, 50, 30);
+        p.setPersonagem("Dragao", 7, nome, 3000, 40, 100, 20, 50, 50, 30);
     }
     else if (cod == 8)
     {
-        p->setPersonagem("Zumbi", 8, nome, 2500, 20, 40, 20, 40, 80, 50);
+        p.setPersonagem("Zumbi", 8, nome, 2500, 20, 40, 20, 40, 80, 50);
     }
 
     cout << "\nPersonagem criado!\n";
-    cout << "\nClasse: " << p->getClasse();
-    cout << "\nNome: " << p->getNome();
-    cout << "\nVida: " << p->getVida();
-    cout << "\nMana: " << p->getMana();
-    cout << "\nForca fisica: " << p->getFisica();
-    cout << "\nForca magica: " << p->getMagica();
-    cout << "\nArmadura: " << p->getResistFisica();
-    cout << "\nResistencia magica: " << p->getResistMagica();
-    cout << "\nAgilidade: " << p->getAgilidade();
 
+    p.printAtributos();
 }
 /* END MENU ESCOLHER PERSONAGEM */
