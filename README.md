@@ -32,10 +32,11 @@ em C++, testando Objetos, Ponteiros, Passagem de parâmetros e outros. O jogo fo
    * [Sobre](#Sobre)
    * [Regras de mágias e armas](#regras)
       * [Personagens](#personagens)
-      * [Mágias](#magias)
+      * [Magias](#magias)
       * [Armas](#armas)
    * [Status Porjeto](#status)
    * [Como acessar o jogo](#tecnologias)
+   * [Organização de diretórios](#dire)
    * [Tecnologias](#tecno)
    * [Contribuidores](#contri)
 <!--te-->
@@ -172,6 +173,17 @@ $ g++ *cpp -o main.exe
 
 <br/>
 
+<div id="dire"></div>
+
+# 📁 Organização de diretórios
+
+- `Imagens:` Esse diretório aramzena todas as imagens utilizadas para a construção do README.md
+- `Jogo`: Diretório utilizado para armazenar todos os códigos em C++ do jogo RPG. Arquivos `.h` e `.cpp`
+
+<!--                                                                                -->
+
+<br/>
+
 <div id="tecno"></div>
 
 # 🛠 Tecnologias
@@ -191,7 +203,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 <h1 align="center"><strong>🌐 Contribuidores 🌐</strong></h1>
 <table align="center">
   <tr>
-    <td align="center"><a href="https://www.linkedin.com/in/bruno-faria-696b88208/"><img style="border-radius: 50%;" src="Imagens/Bruno.jpg" width="100px;" alt=""/><br /><sub><b>Bruno Faria</b></sub></a><br /><a href="https://github.com/brunofaria27" title="GitHub">👨‍🚀</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/bruno-faria-696b88208/"><img style="border-radius: 50%;" src="Imagens/bruno.jpg" width="100px;" alt=""/><br /><sub><b>Bruno Faria</b></sub></a><br /><a href="https://github.com/brunofaria27" title="GitHub">👨‍🚀</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/laura-xavier-061815208/"><img style="border-radius: 50%;" src="Imagens/Laura.jpg" width="100px;" alt=""/><br /><sub><b>Laura Xavier</b></sub></a><br /><a href="https://github.com/mit018" title="GitHub">👨‍🚀</a></td>
   </tr>
 </table>
