@@ -1,12 +1,21 @@
 #include "jogo.h"
 
+using namespace std;
+
 /********************
 **** PERSONAGENS ****
 ********************/
 
 /* FUNÇÃO CONSTRUTORA */
-Personagem::Personagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, int resistFisica,
-                       int resistMagica, int agilidade)
+Personagem::Personagem(){};
+/* END FUNÇÃO CONSTRUTORA */
+
+/* FUNÇÃO DESTRUTORA */
+Personagem::~Personagem() {}
+/* END FUNÇÃO DESTRUTORA */
+
+void Personagem::setPersonagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, int resistFisica,
+                               int resistMagica, int agilidade)
 {
     this->classe = classe;
     this->cod = cod;
@@ -20,11 +29,6 @@ Personagem::Personagem(string classe, int cod, string nome, int vida, int mana, 
     this->agilidade = agilidade;
     const static int vidaMax = vida;
 }
-/* END FUNÇÃO CONSTRUTORA */
-
-/* FUNÇÃO DESTRUTORA */
-Personagem::~Personagem() {}
-/* END FUNÇÃO DESTRUTORA */
 
 /* FUNÇÕES QUE RETORNAM ATRIBUTOS */
 string Personagem::getClasse()

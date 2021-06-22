@@ -20,7 +20,8 @@ protected:
     int agilidade;
 
 public:
-    Personagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, int resistFisica,
+    Personagem();
+    void setPersonagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, int resistFisica,
                int resistMagica, int agilidade);
     string getClasse();
     int getVida();
@@ -37,7 +38,7 @@ public:
 /* END CLASSE PERSONAGEM */
 
 /* CLASSE MAGIA*/
-class Magia : public Personagem
+class Magia
 {
 private:
     string nome;

@@ -22,8 +22,8 @@ int menuArmas(Personagem *p);
 int main()
 {
     int op;
-    Personagem *p1 = new Personagem("Guerreiro", 1, "a", 4000, 30, 100, 20, 80, 20, 20);
-    Personagem *p2 = new Personagem("Guerreiro", 1, "a", 4000, 30, 100, 20, 80, 20, 20);
+    Personagem *p1 = new Personagem();
+    Personagem *p2 = new Personagem();
 
     cout << "\nSeja bem vindo ao Batalha Medieval! :D";
 
@@ -42,8 +42,11 @@ int main()
         {   
             menuEscolherPersonagem(p1, 1);
             cout << "\nvida 1 = " << p1->getVida();
+            cout << "\nNome 1 = " << p1->getNome();
+
             menuEscolherPersonagem(p2, 2);
             cout << "\nvida 2 = " << p2->getVida();
+            cout << "\nNome 2 = " << p2->getNome();
 
             int turno = 1, jogador = 1, acao, op2;
             int vida1 = p1->getVida(), vida2 = p2->getVida();
@@ -239,35 +242,35 @@ void menuEscolherPersonagem(Personagem *p, int jogador)
 
     if (cod == 1)
     {
-        p = new Personagem("Guerreiro", 1, nome, 4000, 30, 100, 20, 80, 20, 20);
+        p->setPersonagem("Guerreiro", 1, nome, 4000, 30, 100, 20, 80, 20, 20);
     }
     else if (cod == 2)
     {
-        p = new Personagem("Ladrao", 2, nome, 2800, 50, 50, 30, 40, 50, 80);
+        p->setPersonagem("Ladrao", 2, nome, 2800, 50, 50, 30, 40, 50, 80);
     }
     else if (cod == 3)
     {
-        p = new Personagem("Mago", 3, nome, 2500, 100, 40, 100, 30, 80, 40);
+        p->setPersonagem("Mago", 3, nome, 2500, 100, 40, 100, 30, 80, 40);
     }
     else if (cod == 4)
     {
-        p = new Personagem("Paladino", 4, nome, 3200, 80, 60, 50, 60, 60, 60);
+        p->setPersonagem("Paladino", 4, nome, 3200, 80, 60, 50, 60, 60, 60);
     }
     else if (cod == 5)
     {
-        p = new Personagem("Animal", 5, nome, 3200, 30, 80, 20, 80, 20, 50);
+        p->setPersonagem("Animal", 5, nome, 3200, 30, 80, 20, 80, 20, 50);
     }
     else if (cod == 6)
     {
-        p = new Personagem("Troll", 6, nome, 2800, 20, 100, 20, 80, 20, 20);
+        p->setPersonagem("Troll", 6, nome, 2800, 20, 100, 20, 80, 20, 20);
     }
     else if (cod == 7)
     {
-        p = new Personagem("Dragao", 7, nome, 3000, 40, 100, 20, 50, 50, 30);
+        p->setPersonagem("Dragao", 7, nome, 3000, 40, 100, 20, 50, 50, 30);
     }
     else if (cod == 8)
     {
-        p = new Personagem("Zumbi", 8, nome, 2500, 20, 40, 20, 40, 80, 50);
+        p->setPersonagem("Zumbi", 8, nome, 2500, 20, 40, 20, 40, 80, 50);
     }
 
     cout << "\nPersonagem criado!\n";
@@ -280,5 +283,6 @@ void menuEscolherPersonagem(Personagem *p, int jogador)
     cout << "\nArmadura: " << p->getResistFisica();
     cout << "\nResistencia magica: " << p->getResistMagica();
     cout << "\nAgilidade: " << p->getAgilidade();
+
 }
 /* END MENU ESCOLHER PERSONAGEM */
