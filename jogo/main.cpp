@@ -33,7 +33,12 @@ int main()
     {
         if (op == 1)
         {
-            cout << "\nExplicacao de como jogar\n";
+            cout << "\nBatalha Medieval!\n";
+            cout << "\nSOBRE O JOGO:\n";
+            cout << "\nJogo RPG por turnos, cada personagem participante executa uma acao em seu turno sem ser interrompido por outros personagens.\n";
+            cout << "Esta acao pode ser um ataque ou o uso de algum item. Dois jogadores batalham para decidir o vencedor, o primeiro jogador a combinar\n";
+            cout << "uma sequencia de ataques que faca com que o inimigo fique com a vida zerada, vence o jogo. Lembrando nem sempre o personagem mais forte ganha,\n";
+            cout << "use a inteligencia para vencer, nao sao todos que tem uma vitoria por conta da forca.\n";
             system("pause");
             system("cls");
 
@@ -52,6 +57,7 @@ int main()
             while (vida1 > 0 && vida2 > 0)
             {
                 cout << "\n\nTURNO " << turno;
+                turno++;
 
                 if (jogador == 1)
                 {
@@ -156,7 +162,6 @@ int main()
                     jogador--;
                 }
             }
-            turno++;
         }
     }
 
@@ -179,35 +184,35 @@ int menuMagias(Personagem &p)
 
     int i = 1, codM = 1, codP = p.getCodP();
 
-    cout << "\n\n0 - Retornar ao menu de acoes";
+    cout << "\n\n0 - Retornar ao menu de acoes\n\n";
 
     if (codP == 4 || codP == 5)
     {
-        cout << i++ << "\n- Pocao de vida\nRestaura 200 pontos de vida\nGasta 12 pontos de mana";
+        cout << i++ << "\n- Pocao de vida\nRestaura 200 pontos de vida\nGasta 12 pontos de mana\n\n";
     }
     if (codP == 7)
     {
-        cout << i++ << "\n\n- Halito de Fogo\nCausa 400 de dano\nGasta 12 pontos de mana";
+        cout << i++ << "- Halito de Fogo\nCausa 400 de dano\nGasta 12 pontos de mana\n\n";
     }
     if (codP == 3 || codP == 5)
     {
-        cout << i++ << "\n\n- Bio\nCausa 360 de dano\nGasta 14 pontos de mana";
+        cout << i++ << "- Bio\nCausa 360 de dano\nGasta 14 pontos de mana\n\n";
     }
     if (codP == 3)
     {
-        cout << i++ << "\n\n- Cura\nRestaura 400 pontos de vida\nGasta 16 pontos de mana";
+        cout << i++ << "- Cura\nRestaura 400 pontos de vida\nGasta 16 pontos de mana\n\n";
     }
     if (codP == 3 || codP == 4)
     {
-        cout << i++ << "\n\n- Flama Gelada\nCausa 320 de dano\nGasta 14 pontos de mana";
+        cout << i++ << "- Flama Gelada\nCausa 320 de dano\nGasta 14 pontos de mana\n\n";
     }
     if (codP == 2 || codP == 3 || codP == 6 || codP == 8)
     {
-        cout << i++ << "\n\n- Intoxicacao\nCausa 280 de dano\nGasta 12 pontos de mana";
+        cout << i++ << "- Intoxicacao\nCausa 280 de dano\nGasta 12 pontos de mana\n\n";
     }
     if (codP == 1 || codP == 2 || codP == 3 || codP == 4)
     {
-        cout << i++ << "\n\n- Tempestade\nCausa 200 de dano\nGasta 12 pontos de mana";
+        cout << i++ << "- Tempestade\nCausa 200 de dano\nGasta 12 pontos de mana\n\n";
     }
 
     cout << "\n\nOpcao escolhida: ";
