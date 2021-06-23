@@ -1,4 +1,5 @@
 #include "jogo.h"
+#include <ctime>
 
 using namespace std;
 
@@ -14,8 +15,8 @@ Personagem::Personagem(){};
 Personagem::~Personagem() {}
 /* END FUNÇÃO DESTRUTORA */
 
-void Personagem::setPersonagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, int resistFisica,
-                               int resistMagica, int agilidade)
+void Personagem::setPersonagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, float resistFisica,
+                               float resistMagica, int agilidade)
 {
     this->classe = classe;
     this->cod = cod;
@@ -80,8 +81,8 @@ void Personagem::printAtributos()
 {
     cout << "\nClasse: " << classe;
     cout << "\nNome: " << nome;
-    cout << "\nVida: " << vida;
-    cout << "\nMana: " << mana;
+    cout << "\nVida Maxima: " << vidaMax;
+    cout << "\nMana Maxima: " << manaMax;
     cout << "\nForca fisica: " << fisica;
     cout << "\nForca magica: " << magica;
     cout << "\nArmadura: " << resistFisica;
@@ -98,11 +99,6 @@ void Personagem::printAtributos()
 void Personagem::perderMana(int gastoMana)
 {
     this->mana = mana - gastoMana;
-
-    if (mana < 0)
-    {
-        this->mana = 0;
-    }
 }
 
 void Personagem::recuperarMana(int recupera)
@@ -125,11 +121,62 @@ void Personagem::receberCura(int cura)
     }
 }
 
-void Personagem::receberDanoM(int dano, int forcaMagica)
+void Personagem::receberDanoM(int dano, float forcaMagica)
 {
-    dano = dano * (((float)forcaMagica) / 100);
+    dano = dano + (dano * (forcaMagica / 100));
 
-    dano = dano - (dano * ((float)this->resistMagica) / 100);
+    dano = dano - (dano * (this->resistMagica / 100));
+
+    this->vida = vida - dano;
+
+    if (vida < 0)
+    {
+        this->vida = 0;
+    }
+}
+
+/* --------------------------------------------------------------------------------------------------------- */
+
+/********************
+****** Armas *******
+********************/
+
+void Personagem::receberDanoA(int danoMin, int danoMax, float forcaFisica)
+{
+    srand(time(0));
+
+    int dano = (rand() % danoMax) + 1 + danoMin;
+
+    dano = dano + (dano * (forcaFisica / 100));
+
+    dano = dano - (dano * (this->resistFisica / 100));
+
+    this->vida = vida - dano;
+
+    if (vida < 0)
+    {
+        this->vida = 0;
+    }
+}
+
+void Personagem::receberDanoBk(float forcaFisica)
+{
+    srand(time(0));
+
+    int critico, dano = (rand() % 900) + 1 + 500;
+
+    srand(time(0));
+
+    critico = (rand() % 100) + 1;
+
+    if (critico <= 30)
+    {
+        dano *= 2;
+    }
+
+    dano = dano + (dano * (forcaFisica / 100));
+
+    dano = dano - (dano * (this->resistFisica / 100));
 
     this->vida = vida - dano;
 

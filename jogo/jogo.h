@@ -15,16 +15,16 @@ protected:
     int mana;
     int fisica;
     int magica;
-    int resistFisica;
-    int resistMagica;
+    float resistFisica;
+    float resistMagica;
     int agilidade;
     int manaMax;
     int vidaMax;
 
 public:
     Personagem();
-    void setPersonagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, int resistFisica,
-               int resistMagica, int agilidade);
+    void setPersonagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, float resistFisica,
+               float resistMagica, int agilidade);
 
     string getClasse();
     int getVida();
@@ -42,7 +42,9 @@ public:
     void perderMana(int gastoMana);
     void recuperarMana(int gastoMana);
     void receberCura(int cura);
-    void receberDanoM(int dano, int forcaMagica);
+    void receberDanoM(int dano, float forcaMagica);
+    void receberDanoA(int danoMin, int danoMax, float forcaFisica);
+    void receberDanoBk(float forcaFisica);
 
     ~Personagem();
 };

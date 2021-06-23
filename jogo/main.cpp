@@ -10,10 +10,12 @@ using namespace std;
 /* FUNÇÕES E PROCEDIMENTOS */
 int menu();
 int menuAcoes();
-void menuEscolherPersonagem(Personagem &p, int jogador);
-void usarMagia(int codMagia, Personagem &p2, Personagem &p1);
-int menuMagias(Personagem &p);
-int menuArmas(Personagem &p);
+void escolherPersonagem(Personagem &p, int jogador);
+void usarMagia(char codMagia, Personagem &p2, Personagem &p1);
+char menuMagias(Personagem &p);
+void usarArma(char codArma, Personagem &p2, Personagem &p1);
+char menuArmas(Personagem &p, int bK);
+int bulKathos();
 /* END FUNÇÕES E PROCEDIMENTOS */
 
 /* --------------------------------------------------------------------------------------------------------- */
@@ -21,6 +23,7 @@ int menuArmas(Personagem &p);
 /* INT MAIN */
 int main()
 {
+    system("cls");
     int op;
     Personagem p1;
     Personagem p2;
@@ -35,10 +38,10 @@ int main()
         {
             cout << "\nBatalha Medieval!\n";
             cout << "\nSOBRE O JOGO:\n";
-            cout << "\nJogo RPG por turnos, cada personagem participante executa uma acao em seu turno sem ser interrompido por outros personagens.\n";
+            cout << "\nJogo RPG por turnos, cada personagem participante executa uma acao por turno sem ser interrompido por outros personagens.\n";
             cout << "Esta acao pode ser um ataque ou o uso de algum item. Dois jogadores batalham para decidir o vencedor, o primeiro jogador a combinar\n";
             cout << "uma sequencia de ataques que faca com que o inimigo fique com a vida zerada, vence o jogo. Lembrando nem sempre o personagem mais forte ganha,\n";
-            cout << "use a inteligencia para vencer, nao sao todos que tem uma vitoria por conta da forca.\n";
+            cout << "use a inteligencia para vencer, nao sao todos que tem uma vitoria por conta da forca.\n\n";
             system("pause");
             system("cls");
 
@@ -46,121 +49,235 @@ int main()
         }
         else if (op == 2)
         {
-            menuEscolherPersonagem(p1, 1);
+            escolherPersonagem(p1, 1);
 
-            menuEscolherPersonagem(p2, 2);
+            escolherPersonagem(p2, 2);
 
-            int turno = 1, jogador = 1, acao, op2;
+            int turno = 1, jogador = 1, acao, op2, bK;
 
-            int vida1 = p1.getVida(), vida2 = p2.getVida();
+            int vida1 = 1, vida2 = 1, contAcoes;
 
             while (vida1 > 0 && vida2 > 0)
             {
-                cout << "\n\nTURNO " << turno;
+                cout << "\n\n";
+                system("pause");
+
+                cout << "\n\n\t\t\t\tTURNO " << turno;
                 turno++;
+                contAcoes = 1;
 
-                if (jogador == 1)
+                while (contAcoes <= 2)
                 {
-                    cout << "\n\n"
-                         << p1.getNome() << ", escolha sua acao.";
-                    cout << "\n\nVida atual: " << p1.getVida();
-                }
-                else
-                {
-                    cout << "\n\n"
-                         << p2.getNome() << ", escolha sua acao.";
-                    cout << "\n\nVida atual: " << p2.getVida();
-                }
-
-                acao = menuAcoes();
-                while (acao == 4)
-                {
-                    cout << "\nDeseja sair e perder todo o progresso do jogo? (1 - Prosseguir; 2 - Cancelar)\n";
-                    cin >> op2;
-
-                    while (op2 > 2 || op2 < 1)
-                    {
-                        cout << "Opcao invalida, insira novamente: ";
-                        cin >> op2;
-                    }
-
-                    if (op2 == 1)
-                    {
-                        cout << "Parabens! Voce perdeu por W.O!\nVencedor: ";
-                        if (jogador == 1)
-                        {
-                            cout << jogador + 1;
-                        }
-                        else
-                        {
-                            cout << jogador - 1;
-                        }
-                        return 0;
-                    }
-                    else
-                    {
-                        acao = menuAcoes();
-                    }
-                }
-
-                if (acao == 1)
-                {
-                    int codMagia;
 
                     if (jogador == 1)
                     {
-                        codMagia = menuMagias(p1);
-                        if (codMagia == 0)
+                        bK = bulKathos();
+                        cout << "\n\n"
+                             << p1.getNome() << ", escolha sua acao. bk = " << bK;
+
+                        if (bK)
                         {
+                            cout << "\nVoce recebeu a bencao de Bul-Kathos!\nNesse turno voce tem acesso a Espada Lendaria Voto Solene de Bul-Kathos nas opcoes de Armas!";
+                        }
+                        cout << "\n\nVida atual: " << p1.getVida();
+                        cout << "\nMana atual: " << p1.getMana();
+                    }
+                    else
+                    {
+                        bK = bulKathos();
+                        cout << "\n\n"
+                             << p2.getNome() << ", escolha sua acao.";
+                        if (bK)
+                        {
+                            cout << "\nVoce recebeu a bencao de Bul-Kathos!\nNesse turno voce tem acesso a Espada Lendaria Voto Solene de Bul-Kathos nas opcoes de Armas!";
+                        }
+                        cout << "\n\nVida atual: " << p2.getVida();
+                        cout << "\nMana atual: " << p2.getMana();
+                    }
+
+                    acao = menuAcoes();
+                    contAcoes++;
+
+                    while (acao == 4)
+                    {
+                        cout << "\nDeseja sair e perder todo o progresso do jogo?\n(1 - Prosseguir; 2 - Cancelar)\n";
+                        cin >> op2;
+
+                        while (op2 > 2 || op2 < 1)
+                        {
+                            cout << "Opcao invalida, insira novamente: ";
+                            cin >> op2;
+                        }
+
+                        if (op2 == 1)
+                        {
+                            cout << "Voce perdeu por W.O!\nVencedor: Jogador";
+                            if (jogador == 1)
+                            {
+                                cout << "2";
+                            }
+                            else
+                            {
+                                cout << "1";
+                            }
+                            return 0;
+                        }
+                        else
+                        {
+                            acao = menuAcoes();
+                        }
+                    }
+
+                    if (acao == 1)
+                    {
+                        char magia;
+                        int diferenca, vidaAntes;
+
+                        if (jogador == 1)
+                        {
+                            magia = menuMagias(p1);
+                            if (magia == 's')
+                            {
+                                jogador++;
+                                turno--;
+                            }
+                            else
+                            {
+                                if (magia != 'c' && magia != 'p')
+                                {
+                                    cout << "\n"
+                                         << p2.getNome() << " recebeu um ataque magico de ";
+                                    vidaAntes = p2.getVida();
+
+                                    usarMagia(magia, p1, p2);
+
+                                    diferenca = vidaAntes - p2.getVida();
+                                    cout << diferenca << " dano!";
+                                }
+                                else
+                                {
+                                    cout << "\n"
+                                         << p1.getNome() << " curou ";
+                                    vidaAntes = p1.getVida();
+
+                                    usarMagia(magia, p1, p2);
+
+                                    diferenca = p1.getVida() - vidaAntes;
+                                    cout << diferenca << " pontos de vida!";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            magia = menuMagias(p2);
+                            if (magia == 's')
+                            {
+                                jogador--;
+                                turno--;
+                            }
+                            else
+                            {
+                                if (magia != 'c' && magia != 'p')
+                                {
+                                    cout << "\n"
+                                         << p1.getNome() << " recebeu um ataque magico de ";
+                                    vidaAntes = p1.getVida();
+
+                                    usarMagia(magia, p2, p1);
+
+                                    diferenca = vidaAntes - p1.getVida();
+                                    cout << diferenca << " dano!";
+                                }
+                                else
+                                {
+                                    cout << "\n"
+                                         << p2.getNome() << " curou ";
+                                    vidaAntes = p2.getVida();
+
+                                    usarMagia(magia, p2, p1);
+
+                                    diferenca = p1.getVida() - vidaAntes;
+                                    cout << diferenca << " pontos de vida!";
+                                }
+                            }
+                        }
+                    }
+                    else if (acao == 2)
+                    {
+                        char arma;
+                        if (jogador == 1)
+                        {
+                            p1.recuperarMana(10);
+                            arma = menuArmas(p1, bK);
+
+                            if (arma == 's')
+                            {
+                                jogador--;
+                                turno--;
+                            }
+                            else
+                            {
+                                usarArma(arma, p1, p2);
+                            }
+                        }
+                        else
+                        {
+                            p2.recuperarMana(10);
+                            arma = menuArmas(p2, bK);
+
+                            if (arma == 's')
+                            {
+                                jogador++;
+                                turno--;
+                            }
+                            else
+                            {
+                                usarArma(arma, p1, p2);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (jogador == 1)
+                        {
+                            p1.printAtributos();
                             jogador--;
                             turno--;
                         }
                         else
                         {
-                            usarMagia(codMagia, p2, p1);
-                        }
-                    }
-                    else
-                    {
-                        codMagia = menuMagias(p2);
-                        if (codMagia == 0)
-                        {
+                            p2.printAtributos();
                             jogador++;
                             turno--;
                         }
-                        else
-                        {
-                            usarMagia(codMagia, p1, p2);
-                        }
                     }
-                }
-                else if (acao == 2)
-                {
-                }
-                else
-                {
-                    if (jogador == 2)
+
+                    if (jogador == 1)
                     {
-                        p1.printAtributos();
-                        jogador--;
-                        turno--;
+                        jogador++;
                     }
                     else
                     {
-                        p2.printAtributos();
-                        jogador++;
-                        turno--;
+                        jogador--;
                     }
-                }
 
-                if (jogador == 1)
-                {
-                    jogador++;
+                    vida1 = p1.getVida();
+                    vida2 = p2.getVida();
                 }
-                else
-                {
-                    jogador--;
-                }
+            }
+            if (vida1 == 0)
+            {
+                cout << "\nFIM DE JOGO\n"
+                     << p1.getNome()
+                     << " morreu! :("
+                     << "\n\nVENCEDOR: Jogador 2";
+            }
+            else if (vida2 == 0)
+            {
+                cout << "\nFIM DE JOGO\n"
+                     << p2.getNome()
+                     << " morreu! :("
+                     << "\n\nVENCEDOR: Jogador 1";
             }
         }
     }
@@ -177,195 +294,126 @@ int main()
 ********* FUNÇÕES E PROCEDIMENTOS ****************************************************************************
 *************************************************************************************************************/
 
-/* MENU MAGIAS */
-int menuMagias(Personagem &p)
-{
-    cout << "\nMagias disnponiveis para " << p.getClasse();
-
-    int i = 1, codM = 1, codP = p.getCodP();
-
-    cout << "\n\n0 - Retornar ao menu de acoes\n\n";
-
-    if (codP == 4 || codP == 5)
-    {
-        cout << i++ << "\n- Pocao de vida\nRestaura 200 pontos de vida\nGasta 12 pontos de mana\n\n";
-    }
-    if (codP == 7)
-    {
-        cout << i++ << "- Halito de Fogo\nCausa 400 de dano\nGasta 12 pontos de mana\n\n";
-    }
-    if (codP == 3 || codP == 5)
-    {
-        cout << i++ << "- Bio\nCausa 360 de dano\nGasta 14 pontos de mana\n\n";
-    }
-    if (codP == 3)
-    {
-        cout << i++ << "- Cura\nRestaura 400 pontos de vida\nGasta 16 pontos de mana\n\n";
-    }
-    if (codP == 3 || codP == 4)
-    {
-        cout << i++ << "- Flama Gelada\nCausa 320 de dano\nGasta 14 pontos de mana\n\n";
-    }
-    if (codP == 2 || codP == 3 || codP == 6 || codP == 8)
-    {
-        cout << i++ << "- Intoxicacao\nCausa 280 de dano\nGasta 12 pontos de mana\n\n";
-    }
-    if (codP == 1 || codP == 2 || codP == 3 || codP == 4)
-    {
-        cout << i++ << "- Tempestade\nCausa 200 de dano\nGasta 12 pontos de mana\n\n";
-    }
-
-    cout << "\n\nOpcao escolhida: ";
-    cin >> codM;
-
-    while (codM < 1 || codM > i)
-    {
-        cout << "\n\nOpcao invalida, insira novamente: ";
-        cin >> codM;
-    }
-
-    return codM;
-}
-/* END MENU MAGIAS */
-
 /* ACAO USAR MAGIA */
-void usarMagia(int codMagia, Personagem &invocador, Personagem &receptor)
+void usarMagia(char codMagia, Personagem &invocador, Personagem &receptor)
 {
-    if (codMagia == 1)
+    int gastoMana, cura, dano;
+
+    if (codMagia == 'p')
     {
-        if (invocador.getMana() < 12)
-        {
-            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
-        }
-        else
-        {
-            invocador.receberCura(200);
-            invocador.perderMana(12);
-        }
+        gastoMana = 12;
+        cura = 200;
     }
-    else if (codMagia == 2)
+    else if (codMagia == 'h')
     {
-        if (invocador.getMana() < 12)
-        {
-            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
-        }
-        else
-        {
-            receptor.receberDanoM(400, invocador.getMagica());
-            invocador.perderMana(12);
-        }
+        gastoMana = 12;
+        dano = 400;
     }
-    else if (codMagia == 3)
+    else if (codMagia == 'b')
     {
-        if (invocador.getMana() < 14)
-        {
-            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
-        }
-        else
-        {
-            receptor.receberDanoM(360, invocador.getMagica());
-            invocador.perderMana(14);
-        }
+        gastoMana = 14;
+        dano = 360;
     }
-    else if (codMagia == 4)
+    else if (codMagia == 'c')
     {
-        if (invocador.getMana() < 16)
-        {
-            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
-        }
-        else
-        {
-            receptor.receberCura(400);
-            invocador.perderMana(16);
-        }
+        gastoMana = 16;
+        cura = 400;
     }
-    else if (codMagia == 5)
+    else if (codMagia == 'f')
     {
-        if (invocador.getMana() < 14)
-        {
-            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
-        }
-        else
-        {
-            receptor.receberDanoM(320, invocador.getMagica());
-            invocador.perderMana(14);
-        }
+        gastoMana = 14;
+        dano = 320;
     }
-    else if (codMagia == 6)
+    else if (codMagia == 'i')
     {
-        if (invocador.getMana() < 12)
-        {
-            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
-        }
-        else
-        {
-            receptor.receberDanoM(280, invocador.getMagica());
-            invocador.perderMana(12);
-        }
+        gastoMana = 12;
+        dano = 280;
     }
-    else if (codMagia == 7)
+    else if (codMagia == 't')
     {
-        if (invocador.getMana() < 12)
+        gastoMana = 12;
+        dano = 200;
+    }
+
+    if (invocador.getMana() < gastoMana)
+    {
+        cout << "\nVoce nao possui mana suficiente para essa magia! :(";
+    }
+    else
+    {
+        if (codMagia != 'p' && codMagia != 'c')
         {
-            cout << "\nVoce nao possui mana suficiente para essa magia! :(";
+            receptor.receberDanoM(dano, invocador.getMagica());
+            invocador.perderMana(gastoMana);
         }
         else
         {
-            receptor.receberDanoM(200, invocador.getMagica());
-            invocador.perderMana(12);
+            receptor.receberCura(cura);
+            invocador.perderMana(gastoMana);
         }
     }
 }
 /* END ACAO USAR MAGIA */
 
-/* MENU ACOES */
-int menuAcoes()
+/* FUNCAO CALCULAR CHANCE DE BUL-KATHOS */
+int bulKathos()
 {
-    int op;
+    int bK;
+    srand(time(0));
 
-    cout << "\n\n1 - Usar Magia";
-    cout << "\n2 - Usar Arma";
-    cout << "\n3 - Exibir atributos atuais";
-    cout << "\n4 - Sair do jogo";
+    bK = (rand() % 100) + 1;
 
-    cout << "\n\nOpcao escolhida: ";
-    cin >> op;
-
-    while (op < 1 || op > 4)
+    if (bK <= 20)
     {
-        cout << "Opcao invalida, insira novamente: ";
-        cin >> op;
+        return 1;
     }
-
-    return op;
+    else
+    {
+        return 0;
+    }
 }
-/* END MENU ACOES */
+/* END FUNCAO CALCULAR CHANCE DE BUL-KATHOS */
 
-/* MENU */
-int menu()
+/* ACAO USAR ARMA */
+void usarArma(char codArma, Personagem &atacante, Personagem &receptor)
 {
-    int op;
-
-    cout << "\n\nMENU";
-    cout << "\n1 - Como Jogar";
-    cout << "\n2 - Jogar";
-    cout << "\n3 - Sair";
-
-    cout << "\n\nOpcao escolhida: ";
-    cin >> op;
-
-    while (op < 1 || op > 3)
+    if (codArma == 'g')
     {
-        cout << "Opcao invalida, insira novamente: ";
-        cin >> op;
+        receptor.receberDanoA(100, 300, atacante.getFisica());
     }
-
-    return op;
+    else if (codArma == 't')
+    {
+        receptor.receberDanoA(220, 400, atacante.getFisica());
+    }
+    else if (codArma == 'e')
+    {
+        receptor.receberDanoA(300, 500, atacante.getFisica());
+    }
+    else if (codArma == 'p')
+    {
+        receptor.receberDanoA(180, 380, atacante.getFisica());
+    }
+    else if (codArma == 'c')
+    {
+        receptor.receberDanoA(50, 200, atacante.getFisica());
+    }
+    else if (codArma == 'b')
+    {
+        receptor.receberDanoA(220, 420, atacante.getFisica());
+    }
+    else if (codArma == 'E')
+    {
+        receptor.receberDanoA(200, 400, atacante.getFisica());
+    }
+    else if (codArma == 'K')
+    {
+        receptor.receberDanoBk(atacante.getFisica());
+    }
 }
-/* END MENU */
+/* END ACAO USAR ARMA */
 
-/* MENU ESCOLHER PERSONAGEM */
-void menuEscolherPersonagem(Personagem &p, int jogador)
+/* ESCOLHER PERSONAGEM */
+void escolherPersonagem(Personagem &p, int jogador)
 {
     int cod;
 
@@ -434,4 +482,4 @@ void menuEscolherPersonagem(Personagem &p, int jogador)
 
     p.printAtributos();
 }
-/* END MENU ESCOLHER PERSONAGEM */
+/* END ESCOLHER PERSONAGEM */
