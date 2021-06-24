@@ -1,6 +1,8 @@
 #include <cstdlib>
 #include <string.h>
 #include <iostream>
+#include <ctime>
+#include <ctype.h>
 
 using namespace std;
 
@@ -18,13 +20,15 @@ protected:
     float resistFisica;
     float resistMagica;
     int agilidade;
+    int energia;
     int manaMax;
     int vidaMax;
-
+    int energiaMax;
+    
 public:
     Personagem();
     void setPersonagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, float resistFisica,
-               float resistMagica, int agilidade);
+               float resistMagica, int agilidade, int energia);
 
     string getClasse();
     int getVida();
@@ -36,6 +40,7 @@ public:
     int getResistFisica();
     int getResistMagica();
     int getAgilidade();
+    int getEnergia();
 
     void printAtributos();
 
@@ -45,6 +50,8 @@ public:
     void receberDanoM(int dano, float forcaMagica);
     void receberDanoA(int danoMin, int danoMax, float forcaFisica);
     void receberDanoBk(float forcaFisica);
+    void recuperarEnergia(int recupera);
+    void perderEnergia(int gastoEnergia);
 
     ~Personagem();
 };
