@@ -78,6 +78,18 @@ int Personagem::getEnergia()
 {
     return energia;
 }
+int Personagem::getVidaMax()
+{
+    return vidaMax;
+}
+int Personagem::getEnergiaMax()
+{
+    return energiaMax;
+}
+int Personagem::getManaMax()
+{
+    return manaMax;
+}
 /* END FUNÇÕES QUE RETORNAM ATRIBUTOS */
 
 /* FUNÇÃO IMPRIMIR ATRIBUTOS */
@@ -93,7 +105,6 @@ void Personagem::printAtributos()
     cout << "\nArmadura: " << resistFisica;
     cout << "\nResistencia magica: " << resistMagica;
     cout << "\nAgilidade: " << agilidade;
-    
 }
 /* END FUNÇÃO IMPRIMIR ATRIBUTOS */
 
@@ -154,10 +165,6 @@ void Personagem::receberDanoA(int danoMin, int danoMax, float forcaFisica)
     int diferenca = danoMax - danoMin;
     int dano = (rand() % diferenca) + 1 + danoMin;
 
-    cout << "\nDano = " << dano;
-    cout << "\nForca fisica = " << forcaFisica;
-    cout << "\nResistencia fisica = " << resistFisica;
-
     dano = dano + (dano * (forcaFisica / 100));
 
     dano = dano - (dano * (resistFisica / 100));
@@ -176,11 +183,9 @@ void Personagem::receberDanoBk(float forcaFisica)
 
     int critico, dano = (rand() % 400) + 1 + 500;
 
-    srand(time(0));
-
     critico = (rand() % 100) + 1;
 
-    if (critico <= 30)
+    if (critico <= 15)
     {
         cout << "\nAcerto critico!";
         dano = dano * 2;
@@ -211,6 +216,27 @@ void Personagem::recuperarEnergia(int recupera)
 void Personagem::perderEnergia(int gastoEnergia)
 {
     this->energia = energia - gastoEnergia;
+}
+
+/* --------------------------------------------------------------------------------------------------------- */
+
+/******************************
+****** Outros atributos *******
+******************************/
+
+int Personagem::desviar()
+{
+    srand(time(0));
+
+    int chance = (rand() % 100) + 1;
+
+    if (chance <= agilidade)
+    {
+        cout << nome << " desviou do ataque e nao recebeu dano!";
+        return 1;
+    }
+
+    return 0;
 }
 
 /* --------------------------------------------------------------------------------------------------------- */

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <ctime>
 #include <ctype.h>
+#include <fstream>
 
 using namespace std;
 
@@ -41,6 +42,9 @@ public:
     int getResistMagica();
     int getAgilidade();
     int getEnergia();
+    int getVidaMax();
+    int getManaMax();
+    int getEnergiaMax();
 
     void printAtributos();
 
@@ -52,6 +56,7 @@ public:
     void receberDanoBk(float forcaFisica);
     void recuperarEnergia(int recupera);
     void perderEnergia(int gastoEnergia);
+    int desviar();
 
     ~Personagem();
 };

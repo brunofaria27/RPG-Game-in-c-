@@ -77,7 +77,7 @@ int bulKathos()
 
     bK = (rand() % 100) + 1;
 
-    if (bK <= 20)
+    if (bK <= 10)
     {
         return 1;
     }
@@ -144,6 +144,14 @@ int usarArma(char codArma, Personagem &atacante, Personagem &receptor)
     {
         cout << "\nVoce nao possui energia suficiente para usar essa arma! :(\nEscolha outra acao.";
         return 0;
+    }
+    else if (receptor.getEnergia() >= 10)
+    {
+        if (receptor.desviar())
+        {
+            receptor.perderEnergia(10);
+            return -1;
+        }
     }
     else
     {

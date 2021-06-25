@@ -156,7 +156,7 @@ char menuArmas(Personagem &p, int bK)
     }
 
     if(bK){
-        cout << "\n\n" << i << " - Espada Lendaria Voto Solene de Bul-Kathos\nCausa 500 a 900 de dano\nDobra o dano se o acerto for critico (chance de 30%)\nNao gasta pontos de energia";
+        cout << "\n\n" << i << " - Espada Lendaria Voto Solene de Bul-Kathos\nCausa 500 a 900 de dano\nDobra o dano se o acerto for critico (chance de 15%)\nNao gasta pontos de energia";
         Arma[i] = 'K';
     }
 

@@ -15,6 +15,10 @@ int bulKathos();
 
 /* --------------------------------------------------------------------------------------------------------- */
 
+bool salvar = false;
+ofstream arq;
+string nomeArquivo;
+
 /* INT MAIN */
 int main()
 {
@@ -44,6 +48,51 @@ int main()
         }
         else if (op == 2)
         {
+            int opS;
+            cout << "\nDeseja que todo o progresso do jogo seja registrado em um arquivo de texto?\n\n1 - Sim\n2 - Nao";
+            cout << "\n\nOpcao escolhida: ";
+            cin >> opS;
+
+            while (opS > 2 || opS < 1)
+            {
+                cout << "\n\nOpcao invalida, insira novamente: ";
+                cin >> opS;
+            }
+
+            if (opS == 1)
+            {
+                salvar = true;
+
+                string txt;
+
+                cout << "\nInsira um nome para o arquivo de texto: ";
+                cin >> txt;
+
+                nomeArquivo = txt + ".txt";
+
+                /*if (!arq.is_open())
+                {
+                    cout << "\nAlgo deu errado, tentar novamente?\n\n1 - Sim, quero ativar o modo salvar\n2 - Nao, nao quero salvar";
+                    cout << "\nOpcao escolhida: ";
+                    cin >> opS;
+
+                    while (opS > 2 || opS < 1)
+                    {
+                        cout << "Opcao invalida, insira novamente: ";
+                        cin >> opS;
+                    }
+                }
+                else
+                {
+                    opS = 0;
+                }*/
+            }
+
+            if (opS == 2)
+            {
+                salvar = false;
+            }
+
             escolherPersonagem(p1, 1);
 
             escolherPersonagem(p2, 2);
@@ -59,6 +108,12 @@ int main()
                 system("cls");
 
                 cout << "\n\n* * * * TURNO " << turno << " * * * *";
+                if (salvar)
+                {
+                    arq.open(nomeArquivo);
+                    arq << "\n\n* * * * TURNO " << turno << " * * * *";
+                    arq.close();
+                }
                 turno++;
                 contAcoes = 1;
 
@@ -75,9 +130,9 @@ int main()
                         {
                             cout << "\n\n* * * * Voce recebeu a bencao de Bul-Kathos! * * * *\nNesse turno voce tem acesso a Espada Lendaria Voto Solene de Bul-Kathos nas opcoes de Armas!";
                         }
-                        cout << "\n\nVida atual: " << p1.getVida();
-                        cout << "\nMana atual: " << p1.getMana();
-                        cout << "\nEnergia atual: " << p1.getEnergia();
+                        cout << "\n\nVida atual: " << p1.getVida() << "/" << p1.getVidaMax();
+                        cout << "\nMana atual: " << p1.getMana() << "/" << p1.getManaMax();
+                        cout << "\nEnergia atual: " << p1.getEnergia() << "/" << p1.getEnergiaMax();
                     }
                     else
                     {
@@ -88,9 +143,9 @@ int main()
                         {
                             cout << "\n\n* * * * Voce recebeu a bencao de Bul-Kathos! * * * *\nNesse turno voce tem acesso a Espada Lendaria Voto Solene de Bul-Kathos nas opcoes de Armas!";
                         }
-                        cout << "\n\nVida atual: " << p2.getVida();
-                        cout << "\nMana atual: " << p2.getMana();
-                        cout << "\nEnergia atual: " << p2.getEnergia();
+                        cout << "\n\nVida atual: " << p2.getVida() << "/" << p2.getVidaMax();
+                        cout << "\nMana atual: " << p2.getMana() << "/" << p2.getManaMax();
+                        cout << "\nEnergia atual: " << p2.getEnergia() << "/" << p2.getEnergiaMax();
                     }
 
                     acao = menuAcoes();
@@ -98,7 +153,8 @@ int main()
 
                     while (acao == 4)
                     {
-                        cout << "\nDeseja sair e perder todo o progresso do jogo?\n(1 - Prosseguir; 2 - Cancelar)\n";
+                        cout << "\nDeseja sair e perder todo o progresso do jogo?\n\n1 - Prosseguir\n2 - Cancelar\n";
+                        cout << "\nOpcao escolhida: ";
                         cin >> op2;
 
                         while (op2 > 2 || op2 < 1)
@@ -238,13 +294,13 @@ int main()
                                 vidaAntes = p2.getVida();
                                 verifica = usarArma(arma, p1, p2);
 
-                                if (verifica)
+                                if (verifica == 1)
                                 {
                                     diferenca = vidaAntes - p2.getVida();
                                     cout << "\n"
                                          << p2.getNome() << " recebeu um ataque fisico de " << diferenca << " dano!\n\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *";
                                 }
-                                else
+                                else if (verifica == 0)
                                 {
                                     acao = 10;
                                 }
@@ -263,13 +319,13 @@ int main()
                                 vidaAntes = p1.getVida();
                                 verifica = usarArma(arma, p2, p1);
 
-                                if (verifica)
+                                if (verifica == 1)
                                 {
                                     diferenca = vidaAntes - p1.getVida();
                                     cout << "\n"
                                          << p1.getNome() << " recebeu um ataque fisico de " << diferenca << " dano!\n\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *";
                                 }
-                                else
+                                else if (verifica == 0)
                                 {
                                     acao = 10;
                                 }
@@ -327,8 +383,9 @@ int main()
                     vida1 = p1.getVida();
                     vida2 = p2.getVida();
 
-                    if(contAcoes == 2){
-                        cout << "FIM DO TURNO " << turno - 1 << "\n\nVida de " << p1.getNome() << ": " << vida1 << "\nVida de " << p2.getNome() << ": " << vida2;
+                    if (contAcoes == 3)
+                    {
+                        cout << "\nFIM DO TURNO " << turno - 1 << "\n\nVida de " << p1.getNome() << ": " << vida1 << "/" << p1.getVidaMax() << "\nVida de " << p2.getNome() << ": " << vida2 << "/" << p2.getVidaMax();
                     }
                 }
             }
