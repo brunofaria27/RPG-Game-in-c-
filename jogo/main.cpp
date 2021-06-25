@@ -41,6 +41,16 @@ int main()
             cout << "Esta acao pode ser um ataque ou o uso de algum item. Dois jogadores batalham para decidir o vencedor, o primeiro jogador a combinar\n";
             cout << "uma sequencia de ataques que faca com que o inimigo fique com a vida zerada, vence o jogo. Lembrando nem sempre o personagem mais forte ganha,\n";
             cout << "use a inteligencia para vencer, nao sao todos que tem uma vitoria por conta da forca.\n\n";
+            cout << "\nCOMO JOGAR:\n";
+            cout << "COMO FUNCIONA O DANO? Todo dano magico e calculado com base na resistencia fisica ou magica do receptor e a forca fisica ou magica do invocador\n";
+            cout << "caso o receptor tenha 50 de resistencia fisica, o dano fisico e abaixado 50%, porem no caso do dano com arma, pode ocorrer do invocador causar dano critico\n";
+            cout << "a chance disto acontecer e de 30%, por isso voce tem que ter sorte de nao acontecer com voce, ha uma arma lendaria que a chance de ser dropada e 20%. A utilizar\n";
+            cout << "as armas um campeao utiliza da sua energia e com passar das utilizacoes fica com pouca energia, podendo nao utilizar mais a sua arma em tal rodada,\n";
+            cout << "por isso a energia deve ser respeitada e usada com sabedoria, voce pode acabar por ficar sem energia e nao poder atacar de forma boa seu inimigo, entao fique esperto,\n";
+            cout << "porem quando voce nao utiliza arma em uma rodada voce recupera 10 de energia, podendo assim poder utilizar a sua arma de forma melhor\n";
+            cout << "Para utilizar as magias, cada campeao inicia com uma quantidade de mana, porem quando utilizada alguma magia, essa mana vai se esgotando e para recupera-la\n";
+            cout << "voce deve nao utilizar uma magia em 1 turno (Recuperando 10 de mana).\n";
+            cout << "BOM JOGO!\n";
             system("pause");
             system("cls");
 
