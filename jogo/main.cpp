@@ -38,21 +38,25 @@ int main()
         if (op == 1)
         {
             cout << "\nBatalha Medieval!\n";
-            cout << "\nSOBRE O JOGO:\n";
+            cout << "\n* * * * SOBRE O JOGO * * * *\n";
             cout << "\nJogo RPG por turnos, cada personagem participante executa uma acao por turno sem ser interrompido por outros personagens.\n";
             cout << "Esta acao pode ser um ataque ou o uso de algum item. Dois jogadores batalham para decidir o vencedor, o primeiro jogador a combinar\n";
             cout << "uma sequencia de ataques que faca com que o inimigo fique com a vida zerada, vence o jogo. Lembrando nem sempre o personagem mais forte ganha,\n";
             cout << "use a inteligencia para vencer, nao sao todos que tem uma vitoria por conta da forca.\n\n";
-            cout << "\nCOMO JOGAR:\n";
-            cout << "COMO FUNCIONA O DANO? Todo dano magico e calculado com base na resistencia fisica ou magica do receptor e a forca fisica ou magica do invocador\n";
-            cout << "caso o receptor tenha 50 de resistencia fisica, o dano fisico e abaixado 50%, porem no caso do dano com arma, pode ocorrer do invocador causar dano critico\n";
-            cout << "a chance disto acontecer e de 30%, por isso voce tem que ter sorte de nao acontecer com voce, ha uma arma lendaria que a chance de ser dropada e 20%. A utilizar\n";
-            cout << "as armas um campeao utiliza da sua energia e com passar das utilizacoes fica com pouca energia, podendo nao utilizar mais a sua arma em tal rodada,\n";
-            cout << "por isso a energia deve ser respeitada e usada com sabedoria, voce pode acabar por ficar sem energia e nao poder atacar de forma boa seu inimigo, entao fique esperto,\n";
+            cout << "\n* * * * ATAQUES E DANO * * * *\n\n";
+
+            cout << "COMO FUNCIONA O DANO?\nTodo dano eh calculado com base na resistencia fisica ou magica do receptor e a forca fisica ou magica do invocador.\n";
+            cout << "Caso o receptor tenha 50 de resistencia fisica, o dano fisico eh reduzido em 50%. Porem no caso do dano com a Arma Lendaria, pode ocorrer acerto critico (chance de 15%) dobrando o dano e\n";
+            cout << " por isso voce tem que ter sorte de nao acontecer com voce. Essa Arma Lendaria (Voto Solene de Bul-Kathos) so eh disponibilizada se o jogador receber a bencao (chance de 10%, todo inicio de turno).\n";
+            cout << "Sempre que um campeao receber um ataque fisico (de arma), ele possui uma chance baseada em sua agilidade, de desviar. Se conseguir, nao recebe dano e o adversario perde sua acao.\n";
+            cout << "\nCOMO FUNCIONAM OS ATAQUES?\n";
+            cout << "Ao utilizar uma arma, um campeao gasta uma quantidade de energia em funcao da arma escolhida. Com passar das utilizacoes a energia vai diminuindo e para recupera-la,\n";
+            cout << " o jogador precisa passar um turno sem utilizar nenhuma arma, recebendo 10 pontos de energia. Por isso, esse atributo deve ser respeitado e usado com sabedoria, voce pode acabar ficando sem energia e sem poder atacar da melhor forma o seu inimigo, entao fique esperto!\n";
             cout << "porem quando voce nao utiliza arma em uma rodada voce recupera 10 de energia, podendo assim poder utilizar a sua arma de forma melhor\n";
-            cout << "Para utilizar as magias, cada campeao inicia com uma quantidade de mana, porem quando utilizada alguma magia, essa mana vai se esgotando e para recupera-la\n";
-            cout << "voce deve nao utilizar uma magia em 1 turno (Recuperando 10 de mana).\n";
-            cout << "BOM JOGO!\n";
+            cout << "O mesmo vale para a mana: para utilizar as magias, uma certa quantidade de mana eh gasta em funcao da magia escolhida, sendo que, para recuperar 10 pontos nesse atributo, eh preciso ficar um turno sem invocar nenhuma magia.\n";
+            cout << "Cada campeao comeca com uma quantidade de mana e energia maxima, sendo impossivel atingir um valor maior durante o jogo.\n";
+            
+            cout << "\nBOM JOGO E BOA SORTE!\n";
             system("pause");
             system("cls");
 
@@ -193,7 +197,7 @@ int main()
                             if (salvar)
                             {
                                 arq.open(nomeArquivo, ios::app);
-                                arq << "\n\n* * * * " << p1.getNome() << " recebeu a bencao de Bul-Kathos! * * * *\nNesse turno voce tem acesso a Espada Lendaria Voto Solene de Bul-Kathos nas opcoes de Armas!";
+                                arq << "\n\n* * * * " << p1.getNome() << " recebeu a bencao de Bul-Kathos! * * * *";
 
                                 arq.close();
                             }
@@ -226,7 +230,7 @@ int main()
                             if (salvar)
                             {
                                 arq.open(nomeArquivo, ios::app);
-                                arq << "\n\n* * * * " << p2.getNome() << " recebeu a bencao de Bul-Kathos! * * * *\nNesse turno voce tem acesso a Espada Lendaria Voto Solene de Bul-Kathos nas opcoes de Armas!";
+                                arq << "\n\n* * * * " << p2.getNome() << " recebeu a bencao de Bul-Kathos! * * * *";
 
                                 arq.close();
                             }
@@ -477,7 +481,6 @@ int main()
                             {
                                 vidaAntes = p2.getVida();
                                 verifica = usarArma(arma, p1, p2);
-                                cout << "\nverifica = " << verifica;
 
                                 if (verifica == 1)
                                 {
@@ -530,7 +533,6 @@ int main()
                             {
                                 vidaAntes = p1.getVida();
                                 verifica = usarArma(arma, p2, p1);
-                                cout << "\nverifica = " << verifica;
 
                                 if (verifica == 1)
                                 {

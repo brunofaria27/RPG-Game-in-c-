@@ -61,7 +61,7 @@ int usarMagia(char codMagia, Personagem &invocador, Personagem &receptor)
         }
         else
         {
-            receptor.receberCura(cura);
+            invocador.receberCura(cura);
             invocador.perderMana(gastoMana);
         }
         return 1;
@@ -151,19 +151,21 @@ int usarArma(char codArma, Personagem &atacante, Personagem &receptor)
         if (receptor.desviar())
         {
             receptor.perderEnergia(10);
+            atacante.perderEnergia(gastoEnergia);
             return -1;
         }
-        else if (codArma == 'K')
-        {
-            receptor.receberDanoBk(atacante.getFisica());
-        }
-        else
-        {
-            receptor.receberDanoA(danoMin, danoMax, atacante.getFisica());
-            atacante.perderEnergia(gastoEnergia);
-        }
-        return 1;
     }
+
+    if (codArma == 'K')
+    {
+        receptor.receberDanoBk(atacante.getFisica());
+    }
+    else
+    {
+        receptor.receberDanoA(danoMin, danoMax, atacante.getFisica());
+        atacante.perderEnergia(gastoEnergia);
+    }
+    return 1;
 }
 /* END ACAO USAR ARMA */
 
@@ -171,6 +173,9 @@ int usarArma(char codArma, Personagem &atacante, Personagem &receptor)
 void escolherPersonagem(Personagem &p, int jogador)
 {
     int cod;
+
+    cout << "\n\n";
+    system("pause");
     system("cls");
 
     cout << "\n\nESCOLHA SEU PERSONAGEM, JOGADOR " << jogador;
