@@ -145,17 +145,15 @@ int usarArma(char codArma, Personagem &atacante, Personagem &receptor)
         cout << "\nVoce nao possui energia suficiente para usar essa arma! :(\nEscolha outra acao.";
         return 0;
     }
-    else if (receptor.getEnergia() >= 10)
+
+    if (receptor.getEnergia() >= 10)
     {
         if (receptor.desviar())
         {
             receptor.perderEnergia(10);
             return -1;
         }
-    }
-    else
-    {
-        if (codArma == 'K')
+        else if (codArma == 'K')
         {
             receptor.receberDanoBk(atacante.getFisica());
         }
@@ -173,6 +171,7 @@ int usarArma(char codArma, Personagem &atacante, Personagem &receptor)
 void escolherPersonagem(Personagem &p, int jogador)
 {
     int cod;
+    system("cls");
 
     cout << "\n\nESCOLHA SEU PERSONAGEM, JOGADOR " << jogador;
 
@@ -238,3 +237,75 @@ void escolherPersonagem(Personagem &p, int jogador)
     p.printAtributos();
 }
 /* END ESCOLHER PERSONAGEM */
+
+/* FUNÇÃO RETORNAR NOME DA MAGIA */
+string getMagia(char magia)
+{
+    if (magia == 'p')
+    {
+        return "Pocao de Vida";
+    }
+    else if (magia == 'h')
+    {
+        return "Halito de Fogo";
+    }
+    else if (magia == 'b')
+    {
+        return "Bio";
+    }
+    else if (magia == 'c')
+    {
+        return "Cura";
+    }
+    else if (magia == 'f')
+    {
+        return "Flama Gelada";
+    }
+    else if (magia == 'i')
+    {
+        return "Intoxicacao";
+    }
+    else if (magia == 't')
+    {
+        return "Tempestade";
+    }
+}
+/* FUNÇÃO RETORNAR NOME DA MAGIA */
+
+/* FUNÇÃO RETORNAR NOME DA ARMA */
+string getArma(char arma)
+{
+    if (arma == 'g')
+    {
+        return "Garra Letal";
+    }
+    else if (arma == 't')
+    {
+        return "Tridente Sagrado";
+    }
+    else if (arma == 'e')
+    {
+        return "Espada Barroca";
+    }
+    else if (arma == 'p')
+    {
+        return "Porrete";
+    }
+    else if (arma == 'c')
+    {
+        return "Cajado";
+    }
+    else if (arma == 'b')
+    {
+        return "Besta";
+    }
+    else if (arma == 'E')
+    {
+        return "Esfera de Ataque";
+    }
+    else if (arma = 'K')
+    {
+        return "Espada Lendaria Voto Solene de Bul-Kathos";
+    }
+}
+/* FUNÇÃO RETORNAR NOME DA ARMA */

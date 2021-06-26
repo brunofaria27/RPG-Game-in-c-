@@ -99,12 +99,28 @@ void Personagem::printAtributos()
     cout << "\nNome: " << nome;
     cout << "\nVida Maxima: " << vidaMax;
     cout << "\nMana Maxima: " << manaMax;
-    cout << "\nEnergia Maxima: " << energia;
+    cout << "\nEnergia Maxima: " << energiaMax;
     cout << "\nForca fisica: " << fisica;
     cout << "\nForca magica: " << magica;
     cout << "\nArmadura: " << resistFisica;
     cout << "\nResistencia magica: " << resistMagica;
     cout << "\nAgilidade: " << agilidade;
+}
+/* END FUNÇÃO IMPRIMIR ATRIBUTOS */
+
+/* FUNÇÃO IMPRIMIR ATRIBUTOS */
+void Personagem::salvarAtributos(ofstream arq)
+{
+    arq << "\nClasse: " << classe;
+    arq << "\nNome: " << nome;
+    arq << "\nVida Maxima: " << vidaMax;
+    arq << "\nMana Maxima: " << manaMax;
+    arq << "\nEnergia Maxima: " << energia;
+    arq << "\nForca fisica: " << fisica;
+    arq << "\nForca magica: " << magica;
+    arq << "\nArmadura: " << resistFisica;
+    arq << "\nResistencia magica: " << resistMagica;
+    arq << "\nAgilidade: " << agilidade;
 }
 /* END FUNÇÃO IMPRIMIR ATRIBUTOS */
 

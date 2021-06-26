@@ -25,11 +25,11 @@ protected:
     int manaMax;
     int vidaMax;
     int energiaMax;
-    
+
 public:
     Personagem();
     void setPersonagem(string classe, int cod, string nome, int vida, int mana, int fisica, int magica, float resistFisica,
-               float resistMagica, int agilidade, int energia);
+                       float resistMagica, int agilidade, int energia);
 
     string getClasse();
     int getVida();
@@ -47,7 +47,8 @@ public:
     int getEnergiaMax();
 
     void printAtributos();
-
+    void salvarAtributos(ofstream arq);
+    
     void perderMana(int gastoMana);
     void recuperarMana(int gastoMana);
     void receberCura(int cura);
@@ -61,4 +62,3 @@ public:
     ~Personagem();
 };
 /* END CLASSE PERSONAGEM */
-
