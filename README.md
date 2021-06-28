@@ -11,7 +11,7 @@ em C++, testando Objetos, Ponteiros, Passagem de parâmetros e outros. O jogo fo
 
 <div align="center"> 
 <img align="center" src="https://img.shields.io/badge/Linguagem-C%2B%2B-blue"/>
-<img align="center" src="https://img.shields.io/badge/Vers%C3%A3o-1.9-green"/>
+<img align="center" src="https://img.shields.io/badge/Vers%C3%A3o-2.0-green"/>
 <img align="center" src="https://img.shields.io/badge/Software-VSCode-blue"/>
 </div>
 
