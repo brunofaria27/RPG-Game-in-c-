@@ -1,0 +1,73 @@
+REGISTRO DE BATALHA
+
+* * * * ATRIBUTOS JOGADOR 1 * * * *
+
+Classe: Guerreiro
+Nome: Laura
+Vida Maxima: 4000
+Mana Maxima: 30
+Energia Maxima: 80
+Forca fisica: 100
+Forca magica: 20
+Armadura: 80
+Resistencia magica: 20
+Agilidade: 20
+
+* * * * ATRIBUTOS JOGADOR 2 * * * *
+
+Classe: Mago
+Nome: Bruno
+Vida Maxima: 2500
+Mana Maxima: 100
+Energia Maxima: 20
+Forca fisica: 40
+Forca magica: 100
+Armadura: 30
+Resistencia magica: 80
+Agilidade: 40
+
+* * * * TURNO 1 * * * *
+
+Vez de agir: Laura
+Vida atual: 4000/4000
+Mana atual: 30/30
+Energia atual: 80/80
+
+Laura tentou usar a arma Espada Barroca mas Bruno desviou e nao recebeu dano!
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+Vez de agir: Bruno
+Vida atual: 2500/2500
+Mana atual: 100/100
+Energia atual: 10/20
+
+Bruno usou a magia Bio e Laura recebeu 576 de dano!
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+FIM DO TURNO 1
+
+Vida de Laura: 3424/4000
+Vida de Bruno: 2500/2500
+
+* * * * TURNO 2 * * * *
+
+Vez de agir: Laura
+Vida atual: 3424/4000
+Mana atual: 30/30
+Energia atual: 64/80
+
+Vez de agir: Laura
+Vida atual: 3424/4000
+Mana atual: 30/30
+Energia atual: 64/80
+
+Laura usou a magia Tempestade e Bruno recebeu 48 de dano!
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+Vez de agir: Bruno
+Vida atual: 2452/2500
+Mana atual: 86/100
+Energia atual: 20/20Bruno abandonou o jogo e perdeu por W.O!
+Vencedor: Laura

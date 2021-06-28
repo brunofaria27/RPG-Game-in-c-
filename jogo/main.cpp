@@ -96,7 +96,7 @@ int main()
 
                     while (opS > 2 || opS < 1)
                     {
-                        cout << "Opcao invalida, insira novamente: ";
+                        cout << "\n\nOpcao invalida, insira novamente: ";
                         cin >> opS;
                     }
                 }
@@ -258,8 +258,7 @@ int main()
                         if (op2 == 1)
                         {
                             cout << "\n\n* * * * FIM DE JOGO * * * *\n\nVoce perdeu por W.O!\nVencedor: ";
-                            cout << "\n\n* * * * * * * *";
-
+                            
                             if (jogador == 1)
                             {
                                 cout << p2.getNome();
@@ -268,6 +267,9 @@ int main()
                             {
                                 cout << p1.getNome();
                             }
+
+                            cout << "\n\n* * * * * * * *";
+
 
                             if (salvar)
                             {
@@ -278,7 +280,7 @@ int main()
                                 }
                                 else
                                 {
-                                    arq << p2.getNome();
+                                    arq << "\n\n* * * * FIM DE JOGO * * * *\n\n" << p2.getNome();
                                 }
 
                                 arq << " abandonou o jogo e perdeu por W.O!\nVencedor: ";
