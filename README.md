@@ -143,7 +143,7 @@ valor ainda deve ser acrescido pela força física do personagem. No caso do Gue
 
 # ✅ Status do projeto
 
-	🚧 Status: 🚀 Em desenvolvimento...  🚧
+	🚧 Status: 🚀 Finalizado...
 
 <!--                                                                                -->
 
