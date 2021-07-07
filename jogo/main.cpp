@@ -670,7 +670,7 @@ int main()
                 {
                     arq.open(nomeArquivo, ios::app);
 
-                    cout << "\n\n* * * * FIM DE JOGO * * * *\n"
+                    arq << "\n\n* * * * FIM DE JOGO * * * *\n"
                          << p2.getNome()
                          << " morreu! :("
                          << "\n\nVENCEDOR: Jogador 1, " << p1.getNome();
