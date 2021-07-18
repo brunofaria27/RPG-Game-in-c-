@@ -203,7 +203,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 <h1 align="center"><strong>🌐 Contribuidores 🌐</strong></h1>
 <table align="center">
   <tr>
-    <td align="center"><a href="https://www.linkedin.com/in/bruno-faria-696b88208/"><img style="border-radius: 50%;" src="Imagens/bruno.jpg" width="100px;" alt=""/><br /><sub><b>Bruno Faria</b></sub></a><br /><a href="https://github.com/brunofaria27" title="GitHub">👨‍🚀</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/bruno-faria-696b88208/"><img style="border-radius: 50%;" src="Imagens/bruno.jpg" width="100px;" alt=""/><br /><sub><b>Bruno R. Faria</b></sub></a><br /><a href="https://github.com/brunofaria27" title="GitHub">👨‍🚀</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/laura-xavier-061815208/"><img style="border-radius: 50%;" src="Imagens/Laura.jpg" width="100px;" alt=""/><br /><sub><b>Laura Xavier</b></sub></a><br /><a href="https://github.com/mit018" title="GitHub">👨‍🚀</a></td>
   </tr>
 </table>
